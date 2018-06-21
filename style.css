@@ -1,0 +1,53 @@
+body {
+  background: radial-gradient(lime, fuchsia);
+  font-family: 'Comic Sans MS', Arial, Helvetica, sans-serif;
+}
+
+.choose-oli {
+  display: flex;
+  justify-content: center;
+}
+
+.row {
+  display: flex;
+}
+
+.row .name {
+  font-size: 18px;
+  flex: 1;
+}
+
+.row .score {
+  font-size: 24px;
+}
+
+.choice {
+  flex: 1;
+}
+
+.button {
+  cursor: pointer;
+  padding: 10px;
+  background: white;
+  margin: 5px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.chosen {
+  font-weight: bold;
+  animation: spin 500ms;
+}
+
+.make-it-happen {
+  animation: spin 500ms;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}
