@@ -1,13 +1,20 @@
+require('babel-polyfill')
 module.exports = async (state, emitter) => {
   state.loaded = false
   state.log = []
   sync()
+  window.setInterval(() => sync(), 5000)
 
   async function sync() {
+    console.log('sync')
     const head = getHead()
     const events = await fetchRemoteEvents(head)
+    if (events != null) {
+      state.log = state.log.concat(events)
+    } else {
+      state.log = await fetchRemoteEvents(0)
+    }
     state.loaded = true
-    state.log = state.log.concat(events)
     emitter.emit('sync')
   }
 
@@ -17,7 +24,10 @@ module.exports = async (state, emitter) => {
   }
 
   async function fetchRemoteEvents(head = 0) {
-    let { events } = await get(`/events/latest/${head}`)
+    let { length, events } = await get(`/events/latest/${head}`)
+    if (length < head - 1) {
+      return null
+    }
     return events
   }
 

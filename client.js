@@ -75,11 +75,13 @@ app.use((state, emitter) => {
     emitter.emit('render')
   })
   emitter.on('less', name => {
+    if (name == null) return
     state.event('less', name)
     lessAudio && lessAudio.play()
     state.chosen = null
   })
   emitter.on('more', name => {
+    if (name == null) return
     state.event('more', name)
     moreAudio && moreAudio.play()
     state.chosen = null

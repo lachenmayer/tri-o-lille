@@ -19,8 +19,8 @@ feed.on('ready', () => {
 
   app.get('/events/latest/:start', (req, res) => {
     const start = req.params.start || 0
-    if (feed.length == 0) {
-      return res.json({ length: 0, events: [] })
+    if (feed.length == 0 || start >= feed.length) {
+      return res.json({ length: feed.length, events: [] })
     }
     streamToArray(feed.createReadStream({ start }), (err, events) => {
       if (err) {
